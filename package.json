@@ -1,0 +1,6 @@
+{
+    "scripts": 
+    {
+        "app": "docker-compose up --build"
+    }
+}
