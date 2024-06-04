@@ -24,9 +24,9 @@ class Result(Generic[T]):
         return self.value
 
     @staticmethod
-    def success(value: T):
+    def make_success(value: T):
         return Result(value=value)
     
     @staticmethod
-    def failure(error: Exception):
+    def make_failure(error: Exception):
         return Result(error=error)
