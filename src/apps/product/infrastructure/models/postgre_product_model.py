@@ -14,6 +14,5 @@ class Product(Base):
     created_at = Column(DateTime(), default=datetime.now())
     aggregate_id = Column(String(), nullable=False, unique=True)
 
-
     def __str__(self):
         return self.name

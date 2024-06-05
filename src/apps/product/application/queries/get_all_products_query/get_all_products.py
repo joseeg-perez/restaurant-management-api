@@ -1,10 +1,10 @@
 from typing import List
 from ....domain import Product, ProductRepository
 from ...exceptions import NoProductFoundException
-from core.application.services.application_service import ApplicationService
+from core.application.services.application_service import Service
 from core.application.results.result import Result
 
-class GetAllProductsService(ApplicationService[None, List[Product]]):
+class GetAllProductsService(Service[None, List[Product]]):
 
     def __init__(self, product_repository: ProductRepository) -> None:
         super().__init__()
