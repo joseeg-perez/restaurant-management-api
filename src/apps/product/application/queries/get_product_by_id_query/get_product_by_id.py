@@ -1,10 +1,10 @@
 from ....domain import Product, ProductRepository
 from ...exceptions import NoProductFoundException
 from .types import GetProductByIdDto
-from core.application.services.application_service import ApplicationService
+from core.application.services.application_service import Service
 from core.application.results.result import Result
 
-class GetProductByIdService(ApplicationService[GetProductByIdDto, Product]):
+class GetProductByIdService(Service[GetProductByIdDto, Product]):
 
     def __init__(self, product_repository: ProductRepository) -> None:
         super().__init__()

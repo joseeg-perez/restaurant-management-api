@@ -1,10 +1,10 @@
 from ....domain import Product, ProductRepository
 from .types import CreateProductDto
-from core.application.services.application_service import ApplicationService
+from core.application.services.application_service import Service
 from core.application.results.result import Result
 from core.infrastructure.providers.uuid_service import UUIDService
 
-class CreateProductService(ApplicationService[CreateProductDto, str]):
+class CreateProductService(Service[CreateProductDto, str]):
 
     def __init__(self, product_repository: ProductRepository) -> None:
         super().__init__()

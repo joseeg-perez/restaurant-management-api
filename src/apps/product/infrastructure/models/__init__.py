@@ -1,1 +1,1 @@
-from .product_postgre_model import Product
+from .postgre_product_model import Product

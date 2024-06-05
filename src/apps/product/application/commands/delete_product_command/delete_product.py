@@ -1,10 +1,10 @@
 from ....domain import Product, ProductRepository
 from ...exceptions import NoProductFoundException
 from .types import DeleteProductDto
-from core.application.services.application_service import ApplicationService
+from core.application.services.application_service import Service
 from core.application.results.result import Result
 
-class DeleteProductService(ApplicationService[DeleteProductDto, str]):
+class DeleteProductService(Service[DeleteProductDto, str]):
 
     def __init__(self, product_repository: ProductRepository) -> None:
         super().__init__()

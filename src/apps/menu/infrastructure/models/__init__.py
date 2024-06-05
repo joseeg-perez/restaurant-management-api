@@ -1,0 +1,1 @@
+from .postgre_menu_model import MenuModel

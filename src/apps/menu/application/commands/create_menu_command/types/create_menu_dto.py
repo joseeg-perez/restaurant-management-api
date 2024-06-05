@@ -1,0 +1,2 @@
+class CreateMenuDto():
+    name: str
