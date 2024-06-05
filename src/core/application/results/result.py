@@ -21,6 +21,8 @@ class Result(Generic[T]):
         return self.error is not None 
     
     def unwrap(self):
+        if self.error is not None:
+            return self.error
         return self.value
 
     @staticmethod
