@@ -1,0 +1,1 @@
+from .no_dishes_found import NoDishFoundException

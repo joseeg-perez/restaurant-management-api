@@ -1,0 +1,1 @@
+from .postgre_dish_model import DishModel
