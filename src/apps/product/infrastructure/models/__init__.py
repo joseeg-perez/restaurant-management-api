@@ -1,0 +1,1 @@
+from .postgre_product_model import Product

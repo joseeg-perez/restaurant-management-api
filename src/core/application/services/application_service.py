@@ -5,7 +5,7 @@ from ..results.result import Result
 T = TypeVar('T')
 E = TypeVar('E')
 
-class ApplicationService(ABC, Generic[T,E]):
+class Service(ABC, Generic[T,E]):
 
     @abstractmethod
     def execute(data: Optional[T] = None) -> Result[E]:
