@@ -1,0 +1,1 @@
+from .postgre_ingredient_model import Ingredient

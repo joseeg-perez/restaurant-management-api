@@ -1,2 +1,0 @@
-from .get_all_products_query.get_all_products import GetAllProductsService
-from .get_product_by_id_query.get_product_by_id import GetProductByIdService
