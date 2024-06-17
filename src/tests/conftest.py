@@ -4,12 +4,12 @@ from ..apps.main import app
 
 @pytest.fixture(scope="module")
 def client():
-    with TestClient(app) as test_client:
+    with TestClient(app) as test_client: #Proporciona un cliente de prueba para la base de datos
         yield test_client
 
 @pytest.fixture(scope="module")
 def test_db():
-    # Configura tu base de datos de prueba aquí
+    # Configurar la base de datos de prueba aquí
     pass
 
 @pytest.fixture(scope="module")
