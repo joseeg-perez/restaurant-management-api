@@ -1,0 +1,1 @@
+from .repositories.ingredient_repository import IngredientRepository
