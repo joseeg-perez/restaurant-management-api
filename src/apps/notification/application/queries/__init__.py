@@ -1,0 +1,1 @@
+from .get_all_notifications_query.get_all_notifications import GetAllNotificationsService
