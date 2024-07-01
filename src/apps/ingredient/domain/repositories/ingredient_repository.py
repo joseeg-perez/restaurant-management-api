@@ -11,6 +11,10 @@ class IngredientRepository(ABC):
         pass
 
     @abstractmethod
+    def get_ingredient_list(self, ingredients_ids: list):
+        pass
+
+    @abstractmethod
     def save_ingredient(self, ingredient: Ingredient):
         pass
 

@@ -1,10 +1,12 @@
+from typing import List
+from sqlalchemy import update
 from ...domain import Ingredient, IngredientRepository
 from ..models import Ingredient as IngredientModel
 from core.infrastructure.db_session.postgre_session import Session
 
 class PostgreIngredientRepository(IngredientRepository):
     
-    def __init__(self, ingredient_model):
+    def __init__(self, ingredient_model: IngredientModel):
         self.ingredient_model = ingredient_model
         self.session = Session()
 
@@ -14,16 +16,23 @@ class PostgreIngredientRepository(IngredientRepository):
         return ingredients
 
     def find_ingredient_by_id(self, id: str):
-        ingredient = self.session.query(self.ingredient_model).filter_by(aggregate_id=id).first()
+        ingredient = self.session.query(self.ingredient_model).filter_by(entity_id=id).first()
 
         return ingredient
+    
+    def get_ingredient_list(self, ingredients_ids: List[str]) -> List[Ingredient]:
+        try:
+            ingredients = self.session.query(self.ingredient_model).filter(IngredientModel.entity_id.in_(ingredients_ids)).all()
+            return ingredients
+
+        except Exception as e:
+            raise Exception(e.__str__())
 
     def save_ingredient(self, ingredient: Ingredient):
         ingredient = IngredientModel(
+            entity_id=ingredient._id,
             name=ingredient._name,
-            availability=ingredient.availability,
-            unit=ingredient.unit,
-            aggregate_id=ingredient._id
+            quantity=ingredient._quantity,
         )
 
         try: 
@@ -40,5 +49,20 @@ class PostgreIngredientRepository(IngredientRepository):
         except Exception as e:
             raise Exception(e.__str__())
 
-    def update_ingredient(self, ingredient: Ingredient):
-        pass
+    def update_ingredient(self, ingredients: List[Ingredient]):
+        try: 
+            for ingredient in ingredients:
+                stmt = (
+                    update(IngredientModel).
+                    where(IngredientModel.entity_id == ingredient.entity_id).
+                    values(
+                        name=ingredient.name,
+                        quantity=ingredient.quantity,
+                    )
+                )
+                self.session.execute(stmt)
+            self.session.commit()
+        except Exception as e:
+            raise Exception(e.__str__())
+        
+        

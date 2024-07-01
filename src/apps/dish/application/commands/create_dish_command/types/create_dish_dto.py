@@ -5,4 +5,4 @@ class CreateDishDto():
     ingredients: List[str]
     description: str
     price: float
-    disponibility: bool
+    availability: bool

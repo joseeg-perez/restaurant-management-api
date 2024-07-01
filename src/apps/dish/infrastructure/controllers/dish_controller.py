@@ -5,9 +5,17 @@ from .dtos import CreateDishDto, GetDishByIdDto, DeleteDishDto
 from ..repositories import PostgreDishRepository
 from ..models import DishModel
 
+from ....ingredient.application.queries.get_ingredients_list_query.get_ingredients_list import GetIngredientsListService
+from ....ingredient.infrastructure.repositories.postgre_ingredient_repository import PostgreIngredientRepository
+from ....ingredient.infrastructure.models import Ingredient as IngredientModel
+
+
 router = APIRouter(tags=['Dishes'])
 dish_model = DishModel
 repository = PostgreDishRepository(dish_model)
+
+ingredient_model = IngredientModel
+ingredient_repository = PostgreIngredientRepository(ingredient_model)
 
 @router.get("/dishes")
 def get_all_dishes():
@@ -27,7 +35,8 @@ def get_dish_by_id(id: str):
 
 @router.post('/dishes')
 def create_dish(dish: CreateDishDto):
-    service = CreateDishService(repository)
+    get_all_ingredients = GetIngredientsListService(ingredient_repository)
+    service = CreateDishService(repository, get_all_ingredients)
     response = service.execute(dish)
 
     return response.unwrap()

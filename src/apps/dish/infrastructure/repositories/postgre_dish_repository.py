@@ -20,11 +20,11 @@ class PostgreDishRepository(DishRepository):
 
     def save_dish(self, dish: Dish):   
         dish = DishModel(
-            aggregate_id=dish._id,
+            entity_id=dish._id,
             name=dish.name,
             description=dish.description,
             price=dish.price,
-            disponibility=dish.disponibility
+            availability=dish.availability
         )
 
         try: 
