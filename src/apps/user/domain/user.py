@@ -8,9 +8,9 @@ class RoleEnum(str, Enum):
     CLIENT = "client"
 
 class User(DomainEntity[str]):
-    def __init__(self, _id: str, first_name: str, last_name: str, identification_number: int, role: RoleEnum) -> None:
+    def __init__(self, _id: str, username: str, password: str, identification_number: int, role: RoleEnum) -> None:
         super().__init__(_id)
-        self.first_name = first_name
-        self.last_name = last_name
+        self.username = username
+        self.password = password
         self.identification_number = identification_number
         self.role = role

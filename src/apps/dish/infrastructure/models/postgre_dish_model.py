@@ -15,7 +15,7 @@ class DishModel(Base):
     created_at = Column(DateTime(), default=datetime.now())
 
     def __str__(self):
-        return self.name
+        return self.__tablename__
     
 class IngredientDish(Base):
     __tablename__ = 'Ingredient_Dish'
@@ -25,7 +25,8 @@ class IngredientDish(Base):
     quantity = Column(Integer(), nullable=False)
     created_at = Column(DateTime(), default=datetime.now())
 
-
+    def __str__(self):
+        return self.__tablename__
 
 class MenuDishModel(Base):
     __tablename__ = 'Menu_Dish'

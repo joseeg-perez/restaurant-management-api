@@ -15,10 +15,10 @@ class CreateOrderService(Service[CreateOrderDto, str], Publisher[CreateOrderDto]
 
     def execute(self, data: CreateOrderDto) -> Result[str]:
         id = self.idGenerator.generate_id()
-        #TODO: PENDIETE AQUI ---> FALTA
-
-        self.notify(data)
         order = Order(id, data.owner_id, data.menu_id, data.dish_id, data.order_price, data.order_status)
         self.order_repository.save_order(order)
+        
+        self.notify(data)
+
 
         return Result[str].make_success(value=id)

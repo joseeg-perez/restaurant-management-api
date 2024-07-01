@@ -20,10 +20,9 @@ class PostgreOrderRepository(OrderRepository):
 
     def save_order(self, order: Order):        
         order = OrderModel(
-            pg_id_user=order.owner,
-            pg_id_menu=order.menu,
-            pg_id_dish=order.dish,
-            aggregate_id=order._id,
+            id_client=order.owner,
+            id_menu=order.menu,
+            id_dish=order.dish,
             price=order.price,
             status=order.status
         )
