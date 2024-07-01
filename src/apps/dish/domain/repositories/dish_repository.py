@@ -11,7 +11,7 @@ class DishRepository(ABC):
         pass
 
     @abstractmethod
-    def save_dish(self, dish: Dish):
+    def save_dish(self, dish: Dish, menu_id: str):
         pass
 
     @abstractmethod

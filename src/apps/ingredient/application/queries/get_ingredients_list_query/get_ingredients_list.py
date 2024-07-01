@@ -16,12 +16,15 @@ class GetIngredientsListService(Service[GetIngredientsListDto, Ingredient]):
     def execute(self, data: GetIngredientsListDto) -> Result[List[Ingredient]]:        
         ingredients_list = GetAllIngredientService(self.ingredient_repository).execute().unwrap()
         filtered_ingredients = []
-        for ingredient in ingredients_list:
-            if ingredient.entity_id in data and ingredient.quantity > 0:
-                ingredient.quantity-= 1
-                filtered_ingredients.append(ingredient)
 
-        if(len(filtered_ingredients) < len(data)):
+        for ingredient_id in data:
+            for ingredient_saved in ingredients_list:
+                if ingredient_id == ingredient_saved.entity_id and ingredient_saved.quantity > 0:
+                    ingredient_saved.quantity-= 1
+                    ingredient = Ingredient(ingredient_saved.entity_id, ingredient_saved.name, ingredient_saved.quantity)
+                    filtered_ingredients.append(ingredient)
+
+        if(len(filtered_ingredients) != len(data)):
             #TODO: notify observer
             return Result[Ingredient].make_failure(error=IncompleteIngredientListException())
 

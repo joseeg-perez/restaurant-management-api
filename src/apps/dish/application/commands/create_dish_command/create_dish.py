@@ -23,6 +23,7 @@ class CreateDishService(Service[CreateDishDto, str]):
             return Result[str].make_failure(error=IncompleteIngredientListException())
         
         dish = Dish(_id, data.name, data.description, data.price, data.availability)
-        self.dish_repository.save_dish(dish)
+        print(dish)
+        self.dish_repository.save_dish(dish, data.menu_id)
 
         return Result[str].make_success(value=_id)

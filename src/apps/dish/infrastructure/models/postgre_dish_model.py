@@ -24,3 +24,16 @@ class IngredientDish(Base):
     id_ingredient = Column(String(), nullable=False, primary_key=True)
     quantity = Column(Integer(), nullable=False)
     created_at = Column(DateTime(), default=datetime.now())
+
+
+
+class MenuDishModel(Base):
+    __tablename__ = 'Menu_Dish'
+
+    id_dish = Column(String(), primary_key=True)
+    id_menu = Column(String(), primary_key=True)
+    quantity = Column(Integer(), nullable=False, unique=True)
+    created_at = Column(DateTime(), default=datetime.now())
+
+    def __str__(self):
+        return self.__tablename__

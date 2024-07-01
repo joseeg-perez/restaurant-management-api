@@ -54,10 +54,10 @@ class PostgreIngredientRepository(IngredientRepository):
             for ingredient in ingredients:
                 stmt = (
                     update(IngredientModel).
-                    where(IngredientModel.entity_id == ingredient.entity_id).
+                    where(IngredientModel.entity_id == ingredient._id).
                     values(
-                        name=ingredient.name,
-                        quantity=ingredient.quantity,
+                        name=ingredient._name,
+                        quantity=ingredient._quantity,
                     )
                 )
                 self.session.execute(stmt)
