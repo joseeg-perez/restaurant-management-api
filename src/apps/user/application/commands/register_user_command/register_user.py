@@ -7,7 +7,7 @@ from core.infrastructure.providers.bcrypt_service import BcryptService
 
 class RegisterUserService(Service[RegisterUserCommand, str]):
 
-    def __init__(self, user_repository: UserRepository, idGenerator) -> None:
+    def __init__(self, user_repository: UserRepository) -> None:
         super().__init__()
         self.user_repository = user_repository
         self.idGenerator = UUIDService
