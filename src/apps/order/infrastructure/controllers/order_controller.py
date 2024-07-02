@@ -1,4 +1,8 @@
-from fastapi import APIRouter, status, HTTPException    
+from fastapi import APIRouter, status, HTTPException
+
+from apps.notification.application.commands.create_notification_command.create_notification import CreateNotificationService
+from apps.notification.infrastructure.models.postgre_notification_model import NotificationModel
+from ....notification.infrastructure.repositories.postgre_notification_repository import PostgreNotificationRepository
 from ...application.commands import CreateOrderService, DeleteOrderService
 
 from ...application.queries import GetAllOrdersService, GetOrderByIdService
@@ -8,6 +12,8 @@ from ..models import OrderModel
 
 router = APIRouter(tags=['Orders'])
 order_model = OrderModel
+notification_model = NotificationModel
+notification_repository = PostgreNotificationRepository(notification_model)
 repository = PostgreOrderRepository(order_model)
 
 @router.get("/orders")
@@ -29,7 +35,8 @@ def get_order_by_id(id: str):
 @router.post('/orders')
 def create_order(order: CreateOrderDto):
     service = CreateOrderService(repository)
-    # service.subscribe()
+    notification_service = CreateNotificationService(notification_repository)
+    service.subscribe(notification_service)
     response = service.execute(order)
 
     return response.unwrap()
