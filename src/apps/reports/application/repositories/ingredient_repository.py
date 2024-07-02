@@ -2,5 +2,5 @@ from abc import ABC, abstractmethod
 
 class IngredientRepository(ABC):
     @abstractmethod
-    def get_ingredients_available_quantities(self):
+    def get_all_ingredients_with_quantities(self):
         pass

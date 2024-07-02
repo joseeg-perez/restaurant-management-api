@@ -3,35 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orders Report</title>
+    <title>Total Sales by Dish</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <h1 class="mt-5 mb-3">Orders Report</h1>
-        {% for client, orders in orders_by_client.items() %}
-        <h2 class="mt-4">{{ client }}</h2>
+        <h1 class="mt-5 mb-3">Total Sales Orders by Dish</h1>
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th scope="col">Order ID</th>
-                    <th scope="col">Product</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col">Status</th>
+                    <th scope="col">Dish Name</th>
+                    <th scope="col">Total Sales</th>
                 </tr>
             </thead>
             <tbody>
-                {% for order in orders %}
+                {% for dish in total_sales %}
                 <tr>
-                    <td>{{ order.id }}</td>
-                    <td>{{ order.product }}</td>
-                    <td>{{ order.quantity }}</td>
-                    <td>{{ order.status }}</td>
+                    <td>{{ dish.dish_name }}</td>
+                    <td>{{ dish.total_sales }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-        {% endfor %}
     </div>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </body>

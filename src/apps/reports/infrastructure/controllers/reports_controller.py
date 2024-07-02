@@ -1,52 +1,46 @@
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Request, Query
+from typing import List
 from fastapi.templating import Jinja2Templates
 from ..repositories.postgre_ingredient_repository import PostgreIngredientRepository
 from ..repositories.postgre_order_repository import PostgreOrderRepository
-from ...application.queries.get_ingredients_available_quantities_query.get_ingredients_available_quantities_query import GetIngredientAvailableQuantitiesService
-from ...application.queries.get_orders_by_client_query.get_orders_by_client_query import GetOrdersByClientsService
+from ...application.queries.get_all_ingredients_with_quantities_query.get_all_ingredients_with_quantities_query import GetAllIngredientWithQuantitiesService
+from ...application.queries.get_orders_by_menu_query.get_orders_by_menu_query import GetOrdersByMenuService
 from starlette.responses import HTMLResponse
+from ....ingredient.infrastructure.models.postgre_ingredient_model import Ingredient
+from ....order.infrastructure.models.postgre_order_model import OrderModel
+from ....menu.infrastructure.models.postgre_menu_model import MenuModel
+from ....dish.infrastructure.models.postgre_dish_model import DishModel
+from ...application.queries.get_total_sales_from_orders_by_dish_query.get_total_sales_from_orders_by_dish_query import GetTtotalSalesFromOrdersByDishService
+
 
 router = APIRouter(tags=['Reports'])
 templates = Jinja2Templates(directory="templates/")
-ingredientRepository = PostgreIngredientRepository()
-orderRepository = PostgreOrderRepository
+ingredient_model = Ingredient
+ingredientRepository = PostgreIngredientRepository(ingredient_model)
+order_model = OrderModel
+menu_model = MenuModel
+dish_model = DishModel
+orderRepository = PostgreOrderRepository(order_model, menu_model, dish_model)
 
 
 @router.get("/report/inventory", response_class=HTMLResponse)
-async def get_ingredients_available_quantities(request: Request):
-    report = GetIngredientAvailableQuantitiesService(ingredientRepository)
+async def get_all_ingredients_with_quantities(request: Request):
+    report = GetAllIngredientWithQuantitiesService(ingredientRepository)
     response = report.execute()
-    templates.TemplateResponse("index.html", {"request": request, "available_quantity_ingredient": report['available_quantity_ingredient']})
-    
-    return response.unwrap()
+    data = response.value
+    return templates.TemplateResponse("inventory/inventory.html", {"request": request, "available_quantity_ingredient": data})
 
-@router.get("report/orders_client", response_class=HTMLResponse)
-async def get_orders_by_client(request: Request):
-    report = GetOrdersByClientsService(orderRepository)
+
+@router.get("/report/orders", response_class=HTMLResponse)
+async def get_orders_by_menu(request: Request):
+    report = GetOrdersByMenuService(orderRepository)
     response = report.execute()
-    templates.TemplateResponse("index.html", {"request": request, "orders_by_client": report['orders_by_client']})
-    
-    return response.unwrap()
+    data = response.value
+    return templates.TemplateResponse("orders/orders.html", {"request": request, "orders": data})
 
-# @app.get("/report/sales", response_class=HTMLResponse)
-# async def sales_report(request: Request):
-#     report = report_service.generate_report()
-#     return templates.TemplateResponse("sales_report.html", {"request": request, "total_sales": report['total_sales']})
-
-# @app.get("/report/ingredients", response_class=HTMLResponse)
-# async def ingredients_report(request: Request):
-#     report = report_service.generate_report()
-#     return templates.TemplateResponse("ingredients_report.html", {"request": request, "most_used_ingredients": report['most_used_ingredients']})
-
-# @app.get("/report/inventory", response_class=HTMLResponse)
-# async def inventory_report(request: Request):
-#     report = report_service.generate_report()
-#     return templates.TemplateResponse("inventory_report.html", {"request": request, "inventory_status": report['inventory_status']})
-
-@router.get('/report_inventory')
-def index(request: Request):
-    return templates.TemplateResponse('inventory/index.html', {"request": request})
-
-@router.get('/report_orders')
-def index(request: Request):
-    return templates.TemplateResponse('orders/index.html', {"request": request})
+@router.get("/report/orders/total_sales", response_class=HTMLResponse)
+async def get_total_sales_from_orders_by_dish(request: Request):
+    report = GetTtotalSalesFromOrdersByDishService(orderRepository)
+    response = report.execute()
+    data = response.value
+    return templates.TemplateResponse("orders/total_sales.html", {"request": request, "total_sales": data})
