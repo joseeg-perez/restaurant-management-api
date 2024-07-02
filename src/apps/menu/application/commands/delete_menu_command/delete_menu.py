@@ -17,4 +17,4 @@ class DeleteMenuService(Service[DeleteMenuDto, str]):
 
         self.menu_repository.delete_menu(menu) 
 
-        return Result[str].make_success(value=menu.aggregate_id)
+        return Result[str].make_success(value=menu.entity_id)

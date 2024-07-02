@@ -15,7 +15,7 @@ class PostgreDishRepository(DishRepository):
         return dishes
 
     def find_dish_by_id(self, id: str):
-        dish = self.session.query(self.dish_model).filter_by(aggregate_id=id).first()
+        dish = self.session.query(self.dish_model).filter_by(entity_id=id).first()
 
         return dish
 
