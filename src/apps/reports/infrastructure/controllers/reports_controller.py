@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Request, Query
+from fastapi import APIRouter, Request
 from typing import List
 from fastapi.templating import Jinja2Templates
 from ..repositories.postgre_ingredient_repository import PostgreIngredientRepository
@@ -22,14 +22,12 @@ menu_model = MenuModel
 dish_model = DishModel
 orderRepository = PostgreOrderRepository(order_model, menu_model, dish_model)
 
-
 @router.get("/report/inventory", response_class=HTMLResponse)
 async def get_all_ingredients_with_quantities(request: Request):
     report = GetAllIngredientWithQuantitiesService(ingredientRepository)
     response = report.execute()
     data = response.value
     return templates.TemplateResponse("inventory/inventory.html", {"request": request, "available_quantity_ingredient": data})
-
 
 @router.get("/report/orders", response_class=HTMLResponse)
 async def get_orders_by_menu(request: Request):
