@@ -6,3 +6,7 @@ class CreateOrderDto():
     dish_id: str
     order_price: float
     order_status: StatusEnum
+
+class CreateNotificationDto():
+    user_id: str
+    body: str

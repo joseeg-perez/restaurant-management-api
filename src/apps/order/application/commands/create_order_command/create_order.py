@@ -1,12 +1,12 @@
 from ....domain import Order, OrderRepository
-from .types import CreateOrderDto
+from .types import CreateOrderDto, CreateNotificationDto
 from .....notification.application.commands.create_notification_command.types.create_notification_dto import CreateNotificationDto
 from core.application.services.application_service import Service
 from core.application.results.result import Result
 from core.infrastructure.providers.uuid_service import UUIDService
 from core.application.events.publisher import Publisher
 
-class CreateOrderService(Service[CreateOrderDto, str], Publisher[CreateOrderDto]):
+class CreateOrderService(Service[CreateOrderDto, str], Publisher[CreateNotificationDto]):
 
     def __init__(self, order_repository: OrderRepository) -> None:
         super().__init__()
