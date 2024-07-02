@@ -1,3 +1,4 @@
+from datetime import datetime
 from ...domain import User, UserRepository
 from ..models import UserModel
 from core.infrastructure.db_session.postgre_session import Session
@@ -13,13 +14,19 @@ class PostgreUserRepository(UserRepository):
         
         return users
 
+    def find_user_by_username(self, username: str):
+        user = self.session.query(self.user_model).filter_by(username=username).first()
+        
+        return user
+
     def save_user(self, user: User):        
         user = UserModel(
             entity_id=user._id,
             username=user.username,
             password=user.password,
             identification_number=user.identification_number,
-            role=user.role.value
+            role=user.role.value,
+            created_at=datetime.now(),
         )
 
         try: 
