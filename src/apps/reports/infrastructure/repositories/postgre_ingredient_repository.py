@@ -8,10 +8,8 @@ class PostgreIngredientRepository(IngredientRepository):
     
     def get_ingredients_available_quantities(self):
         try:
-            # Ejecuta una consulta SQL para obtener las cantidades disponibles de todos los ingredientes
-            result = self.session.execute("SELECT ingredient_name, amount FROM ingredients")
-            # Convierte el resultado en una lista de diccionarios
-            ingredients = [{"name": row.ingredient_name, "amount": row.amount} for row in result]
+            result = self.session.execute('SELECT name, quantity FROM "Ingredient"')
+            ingredients = [{"name": row.name, "quantity": row.quantity} for row in result]
             return ingredients
         except Exception as e:
-            raise Exception(str(e))
+            raise Exception(e.__str__())
