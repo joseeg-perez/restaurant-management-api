@@ -1,5 +1,5 @@
 from fastapi.testclient import TestClient
-from apps.main import app  
+from ....apps.main import app  
 from ....apps.ingredient.infrastructure.models.postgre_ingredient_model import Ingredient 
 
 client = TestClient(app)
@@ -30,4 +30,5 @@ def test_delete_ingredient():
     response = client.delete(f"/ingredient/{ingredient_id}")
     assert response.status_code == 200
     # Verifica más detalles según la estructura de tu respuesta JSON
+
 
