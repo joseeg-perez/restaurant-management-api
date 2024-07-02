@@ -17,4 +17,4 @@ class DeleteDishService(Service[DeleteDishDto, str]):
 
         self.dish_repository.delete_dish(dish) 
 
-        return Result[str].make_success(value=dish.aggregate_id)
+        return Result[str].make_success(value=dish.entity_id)
