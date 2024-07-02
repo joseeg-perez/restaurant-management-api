@@ -17,4 +17,4 @@ class DeleteIngredientService(Service[DeleteIngredientDto, str]):
 
         self.ingredient_repository.delete_ingredient(ingredient) 
 
-        return Result[str].make_success(value=ingredient.aggregate_id)
+        return Result[str].make_success(value=ingredient.entity_id)
