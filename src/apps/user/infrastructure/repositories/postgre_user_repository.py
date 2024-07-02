@@ -15,9 +15,9 @@ class PostgreUserRepository(UserRepository):
 
     def save_user(self, user: User):        
         user = UserModel(
-            aggregate_id=user._id,
-            first_name=user.first_name,
-            last_name=user.last_name,
+            entity_id=user._id,
+            username=user.username,
+            password=user.password,
             identification_number=user.identification_number,
             role=user.role.value
         )

@@ -14,14 +14,14 @@ class PostgreMenuRepository(MenuRepository):
         return menus
 
     def find_menu_by_id(self, id: str):
-        menu = self.session.query(self.menu_model).filter_by(aggregate_id=id).first()
+        menu = self.session.query(self.menu_model).filter_by(entity_id=id).first()
 
         return menu
 
     def save_menu(self, menu: Menu):        
         menu = MenuModel(
             name=menu.name,
-            aggregate_id=menu._id
+            entity_id=menu._id
         )
 
         try: 
