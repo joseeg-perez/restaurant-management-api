@@ -7,13 +7,34 @@ session = Session()
 class DishModel(Base):
     __tablename__ = 'Dish'
 
-    pg_id_dish = Column(Integer(), primary_key=True)
-    aggregate_id = Column(String(), nullable=False, unique=True)
+    entity_id = Column(String(), primary_key=True)
     name = Column(String(20), nullable=False, unique=True)
     description = Column(String(), nullable=False)
     price = Column(Float(), nullable=False)
-    disponibility = Column(Boolean(), nullable=False)
+    availability = Column(Boolean(), nullable=False)
     created_at = Column(DateTime(), default=datetime.now())
 
     def __str__(self):
-        return self.name
+        return self.__tablename__
+    
+class IngredientDish(Base):
+    __tablename__ = 'Ingredient_Dish'
+
+    id_dish = Column(String(), nullable=False, primary_key=True)
+    id_ingredient = Column(String(), nullable=False, primary_key=True)
+    quantity = Column(Integer(), nullable=False)
+    created_at = Column(DateTime(), default=datetime.now())
+
+    def __str__(self):
+        return self.__tablename__
+
+class MenuDishModel(Base):
+    __tablename__ = 'Menu_Dish'
+
+    id_dish = Column(String(), primary_key=True)
+    id_menu = Column(String(), primary_key=True)
+    quantity = Column(Integer(), nullable=False, unique=True)
+    created_at = Column(DateTime(), default=datetime.now())
+
+    def __str__(self):
+        return self.__tablename__

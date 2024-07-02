@@ -13,7 +13,7 @@ class CreateUserService(Service[CreateUserDto, str]):
 
     def execute(self, data: CreateUserDto) -> Result[str]:
         id = self.idGenerator.generate_id()
-        user = User(id, data.first_name, data.last_name, data.identification_number, data.role)
+        user = User(id, data.username, data.password, data.identification_number, data.role)
         self.user_repository.save_user(user)
 
         return Result[str].make_success(value=id)

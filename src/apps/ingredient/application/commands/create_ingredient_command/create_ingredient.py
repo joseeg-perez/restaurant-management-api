@@ -13,7 +13,7 @@ class CreateIngredientService(Service[CreateIngredientDto, str]):
 
     def execute(self, data: CreateIngredientDto) -> Result[str]:
         _id = self.idGenerator.generate_id()
-        ingredient = Ingredient(_id, data.name, data.availability, data.unit)
+        ingredient = Ingredient(_id, data.name, data.quantity)
         self.ingredient_repository.save_ingredient(ingredient)
 
         return Result[str].make_success(value=_id)
