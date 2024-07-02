@@ -7,10 +7,9 @@ session = Session()
 class UserModel(Base):
     __tablename__ = 'User'
 
-    pg_id_user = Column(Integer(), primary_key=True)
-    aggregate_id = Column(String(), nullable=False, unique=True)
-    first_name = Column(String(20), nullable=False)
-    last_name = Column(String(20), nullable=False)
+    entity_id = Column(String(), primary_key=True)
+    username = Column(String, nullable=False)
+    password = Column(String, nullable=False)
     identification_number = Column(Integer(), nullable=False, unique=True)
     role = Column(String(20), nullable=False)
     created_at = Column(DateTime(), default=datetime.now())

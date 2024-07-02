@@ -6,6 +6,9 @@ class UserRepository(ABC):
     def find_all_users(self):
         pass
 
+    def find_user_by_username(self, username: str):
+        pass
+
     @abstractmethod
     def save_user(self, user: User):
         pass

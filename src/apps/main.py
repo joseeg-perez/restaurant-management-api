@@ -3,8 +3,11 @@ from apps.ingredient.infrastructure.controllers.ingredient_controller import rou
 from apps.menu.infrastructure.controllers.menu_controller import router as menu_router
 from apps.dish.infrastructure.controllers.dish_controller import router as dish_router
 from apps.user.infrastructure.controllers.user_controller import router as user_router
+from dotenv import load_dotenv
 
 app = FastAPI()
+
+load_dotenv()
 
 app.include_router(ingredient_router)
 app.include_router(menu_router)
