@@ -5,7 +5,9 @@ from .dtos import CreateMenuDto, GetMenuByIdDto, DeleteMenuDto
 from ..repositories import PostgreMenuRepository
 from ..models import MenuModel
 
-router = APIRouter(tags=['Menus'])
+from ....auth.infrastructure.middlewares.verify_token_route import VerifyTokenRoute
+
+router = APIRouter(route_class=VerifyTokenRoute, tags=['Menus'])
 menu_model = MenuModel
 repository = PostgreMenuRepository(menu_model)
 

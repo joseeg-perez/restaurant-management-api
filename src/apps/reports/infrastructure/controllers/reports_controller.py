@@ -12,10 +12,11 @@ from ....menu.infrastructure.models.postgre_menu_model import MenuModel
 from ....dish.infrastructure.models.postgre_dish_model import DishModel
 from ....user.infrastructure.models.postgre_user_model import UserModel
 from ...application.queries.get_total_sales_from_orders_by_dish_query.get_total_sales_from_orders_by_dish_query import GetTtotalSalesFromOrdersByDishService
+from ....auth.infrastructure.middlewares.verify_token_route import VerifyTokenRoute
 from ...application.queries.get_frequent_clients_query.get_frequent_clients_query import GetFrequentClientsService
 from ...application.queries.get_frequent_dishes_query.get_frequent_dishes_query import GetFrequentDishesService
 
-router = APIRouter(tags=['Reports'])
+router = APIRouter(route_class=VerifyTokenRoute, tags=['Reports'])
 templates = Jinja2Templates(directory="templates/")
 ingredient_model = Ingredient
 ingredientRepository = PostgreIngredientRepository(ingredient_model)

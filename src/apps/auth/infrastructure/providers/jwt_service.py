@@ -2,20 +2,16 @@ from fastapi.responses import JSONResponse
 import jwt
 from datetime import datetime, timedelta
 from os import getenv
-from apps.user.infrastructure.models.postgre_user_model import UserModel
 
 class JwtService():
     
-    def expire_date(days: int):
+    def generateToken(id: str ) -> str:
         date = datetime.now()
-        new_date = date + timedelta(days)
-        return new_date
-    
-    def generateToken(self, user: UserModel) -> str:
-        token =  jwt.encode(payload = {**user, "exp": self.expire_date(1)}, key=getenv("SECRET_KEY"), algorithm="HS256")
+        new_date = date + timedelta(1)
+        token =  jwt.encode(payload = {"id": id, "exp": new_date}, key=getenv("SECRET_KEY"), algorithm="HS256")
         return token
     
-    def validateToken(self, token: str, output: False):
+    def validateToken(token: str, output: False):
         try:
             if output:
                 return jwt.decode(token, key=getenv("SECRET_KEY"), algorithms=["HS256"])

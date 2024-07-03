@@ -1,1 +1,1 @@
-from .verify_token_route import verifyTokenRoute
+from .verify_token_route import VerifyTokenRoute
