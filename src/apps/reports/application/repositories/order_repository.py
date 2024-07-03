@@ -7,3 +7,9 @@ class OrderRepository(ABC):
     
     def get_total_sales_from_orders_by_dish(self):
         pass
+
+    def get_frequent_clients(self):
+        pass
+    
+    def get_frequent_dishes(self):
+        pass
