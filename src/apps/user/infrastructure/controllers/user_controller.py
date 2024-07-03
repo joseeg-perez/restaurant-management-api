@@ -1,8 +1,8 @@
 from fastapi import APIRouter 
 from ....auth.application.commands.login import LoginService
-from ...application.commands import CreateUserService, RegisterUserService
+from ...application.commands import RegisterUserService
 from ...application.queries import GetAllUsersService
-from .dtos import CreateUserDto, RegisterUserDto, LoginDto
+from .dtos import RegisterUserDto, LoginDto
 from ..repositories import PostgreUserRepository
 from ..models import UserModel
 
@@ -15,13 +15,6 @@ def get_all_users():
     service = GetAllUsersService(repository)
     response = service.execute()
     
-    return response.unwrap()
-
-@router.post('/user')
-def create_user(user: CreateUserDto):
-    service = CreateUserService(repository)
-    response = service.execute(user)
-
     return response.unwrap()
 
 @router.post('/user/register')

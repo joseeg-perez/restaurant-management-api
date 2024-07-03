@@ -5,7 +5,9 @@ from .dtos import CreateIngredientDto, DeleteIngredientDto, GetIngredientByIdDto
 from ..repositories import PostgreIngredientRepository
 from ..models import Ingredient
 
-router = APIRouter(tags=['Ingredients'])
+from ....auth.infrastructure.middlewares.verify_token_route import VerifyTokenRoute
+
+router = APIRouter(route_class=VerifyTokenRoute, tags=['Ingredients'])
 ingredient_model = Ingredient
 repository = PostgreIngredientRepository(ingredient_model)
 

@@ -17,8 +17,10 @@ from ....ingredient.application.queries.get_ingredients_list_query.get_ingredien
 from ....ingredient.infrastructure.repositories.postgre_ingredient_repository import PostgreIngredientRepository
 from ....ingredient.infrastructure.models import Ingredient as IngredientModel
 
+from ....auth.infrastructure.middlewares.verify_token_route import VerifyTokenRoute
 
-router = APIRouter(tags=['Dishes'])
+router = APIRouter(route_class=VerifyTokenRoute, tags=['Dishes'])
+
 dish_model = DishModel
 repository = PostgreDishRepository(dish_model)
 
@@ -52,7 +54,6 @@ def create_dish(dish: CreateDishDto):
     notification_service = CreateNotificationService(notification_repository)
     get_all_ingredients = GetIngredientsListService(ingredient_repository, get_all_users)
     get_all_ingredients.subscribe(notification_service)
-    
 
     service = CreateDishService(repository, get_all_ingredients)
     response = service.execute(dish)
