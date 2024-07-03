@@ -11,9 +11,9 @@ from ....order.infrastructure.models.postgre_order_model import OrderModel
 from ....menu.infrastructure.models.postgre_menu_model import MenuModel
 from ....dish.infrastructure.models.postgre_dish_model import DishModel
 from ...application.queries.get_total_sales_from_orders_by_dish_query.get_total_sales_from_orders_by_dish_query import GetTtotalSalesFromOrdersByDishService
+from ....auth.infrastructure.middlewares.verify_token_route import VerifyTokenRoute
 
-
-router = APIRouter(tags=['Reports'])
+router = APIRouter(route_class=VerifyTokenRoute, tags=['Reports'])
 templates = Jinja2Templates(directory="templates/")
 ingredient_model = Ingredient
 ingredientRepository = PostgreIngredientRepository(ingredient_model)

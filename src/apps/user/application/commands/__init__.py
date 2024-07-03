@@ -1,2 +1,1 @@
-from .create_user_command.create_user import CreateUserService
 from .register_user_command.register_user import RegisterUserService

@@ -10,7 +10,9 @@ from .dtos import CreateOrderDto, GetOrderByIdDto, DeleteOrderDto
 from ..repositories import PostgreOrderRepository
 from ..models import OrderModel
 
-router = APIRouter(tags=['Orders'])
+from ....auth.infrastructure.middlewares.verify_token_route import VerifyTokenRoute
+
+router = APIRouter(route_class=VerifyTokenRoute, tags=['Orders'])
 order_model = OrderModel
 notification_model = NotificationModel
 notification_repository = PostgreNotificationRepository(notification_model)
