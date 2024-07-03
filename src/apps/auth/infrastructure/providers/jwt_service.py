@@ -7,7 +7,7 @@ class JwtService():
     
     def generateToken(id: str ) -> str:
         date = datetime.now()
-        new_date = date + timedelta(seconds=20)
+        new_date = date + timedelta(minutes=40)
         token =  jwt.encode(payload = {"id": id, "exp": new_date}, key=getenv("SECRET_KEY"), algorithm="HS256")
         return token
     
