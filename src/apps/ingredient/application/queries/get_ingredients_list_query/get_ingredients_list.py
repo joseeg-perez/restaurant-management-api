@@ -24,18 +24,17 @@ class GetIngredientsListService(Service[GetIngredientsListDto, Ingredient], Publ
 
         for ingredient_id in data:
             for ingredient_saved in ingredients_list:
-                if ingredient_id == ingredient_saved.entity_id and ingredient_saved.quantity > 0:
-                    ingredient_saved.quantity-= 1
-                    ingredient = Ingredient(ingredient_saved.entity_id, ingredient_saved.name, ingredient_saved.quantity)
-                    filtered_ingredients.append(ingredient)
-
-        if(len(filtered_ingredients) != len(data)):
-            users = self.get_all_users
-            filtered_users = [user for user in users if user.role == 'admin'] 
-            for admin in filtered_users:
-                notification = {'user_id': admin.entity_id, 'body': f'Hello {admin.username}, we need to do a re-stock. Please, check the ingredients list.'}
-                self.notify(notification)
-            return Result[Ingredient].make_failure(error=IncompleteIngredientListException())
+                if ingredient_id != ingredient_saved.entity_id and ingredient_saved.quantity <= 0:
+                    users = self.get_all_users
+                    filtered_users = [user for user in users if user.role == 'admin'] 
+                    for admin in filtered_users:
+                        notification = {'user_id': admin.entity_id, 'body': f'Hello {admin.username}, we need to do a re-stock. Please, check the ingredients list.'}
+                        self.notify(notification)
+                    return Result[Ingredient].make_failure(error=IncompleteIngredientListException())
+                
+                ingredient_saved.quantity-= 1
+                ingredient = Ingredient(ingredient_saved.entity_id, ingredient_saved.name, ingredient_saved.quantity)
+                filtered_ingredients.append(ingredient)
 
         self.ingredient_repository.update_ingredient(filtered_ingredients)
         return Result[List[Ingredient]].make_success(value=filtered_ingredients)
