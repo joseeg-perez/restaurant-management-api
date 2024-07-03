@@ -1,2 +1,0 @@
-from .create_product_command.create_product import CreateProductService
-from .delete_product_command.delete_product import DeleteProductService

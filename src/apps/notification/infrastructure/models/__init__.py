@@ -1,0 +1,1 @@
+from .postgre_notification_model import NotificationModel

@@ -1,1 +1,2 @@
 from .no_users_found import NoUserFoundException
+from .unauthorized import UnauthorizedException
