@@ -13,11 +13,6 @@ class PostgreOrderRepository(OrderRepository):
         
         return orders
 
-    def find_order_by_id(self, id: str):
-        order = self.session.query(self.order_model).filter_by(aggregate_id=id).first()
-
-        return order
-
     def save_order(self, order: Order):        
         order = OrderModel(
             id_client=order.owner,
@@ -31,13 +26,6 @@ class PostgreOrderRepository(OrderRepository):
             self.session.add(order)
             self.session.commit()
         
-        except Exception as e:
-            raise Exception(e.__str__())
-
-    def delete_order(self, order: Order):
-        try:
-            self.session.delete(order)
-            self.session.commit()
         except Exception as e:
             raise Exception(e.__str__())
 

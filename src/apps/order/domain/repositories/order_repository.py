@@ -7,15 +7,7 @@ class OrderRepository(ABC):
         pass
 
     @abstractmethod
-    def find_order_by_id(self, id: str):
-        pass
-
-    @abstractmethod
     def save_order(self, order: Order):
-        pass
-
-    @abstractmethod
-    def delete_order(self, order: Order):
         pass
 
     @abstractmethod

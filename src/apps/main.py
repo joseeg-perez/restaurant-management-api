@@ -6,6 +6,7 @@ from apps.user.infrastructure.controllers.user_controller import router as user_
 from dotenv import load_dotenv
 from apps.order.infrastructure.controllers.order_controller import router as order_router  
 from apps.notification.infrastructure.controllers.notification_controller import router as notification_router 
+from apps.reports.infrastructure.controllers.reports_controller import router as report_router
 
 app = FastAPI()
 
@@ -17,3 +18,4 @@ app.include_router(dish_router)
 app.include_router(user_router)
 app.include_router(order_router)
 app.include_router(notification_router)
+app.include_router(report_router)
