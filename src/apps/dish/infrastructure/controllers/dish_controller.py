@@ -52,7 +52,6 @@ def create_dish(dish: CreateDishDto):
     notification_service = CreateNotificationService(notification_repository)
     get_all_ingredients = GetIngredientsListService(ingredient_repository, get_all_users)
     get_all_ingredients.subscribe(notification_service)
-    
 
     service = CreateDishService(repository, get_all_ingredients)
     response = service.execute(dish)
